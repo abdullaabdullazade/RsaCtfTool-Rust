@@ -10,29 +10,6 @@ use crate::key::{PublicKey, PrivateKey};
 
 pub struct BinaryPolyFactoringAttack;
 
-/// GF(2) polynomial multiplication (coefficients in Z/2Z, represented as bit vector u64).
-fn gf2_poly_mul(a: u128, b: u128) -> u128 {
-    let mut result = 0u128;
-    let mut aa = a;
-    let mut bb = b;
-    while bb != 0 {
-        if bb & 1 != 0 { result ^= aa; }
-        aa <<= 1;
-        bb >>= 1;
-    }
-    result
-}
-
-/// GF(2) polynomial GCD
-fn gf2_poly_gcd(mut a: u128, mut b: u128) -> u128 {
-    while b != 0 {
-        let r = gf2_poly_rem(a, b);
-        a = b;
-        b = r;
-    }
-    a
-}
-
 /// Degree of GF(2) polynomial
 fn gf2_poly_deg(a: u128) -> i32 {
     if a == 0 { return -1; }
@@ -78,7 +55,7 @@ fn int_to_gf2_poly(n: &Integer) -> Option<u128> {
 }
 
 /// Trial division in GF(2)[x] up to degree half of input
-fn gf2_factor(mut n_poly: u128) -> Option<(u128, u128)> {
+fn gf2_factor(n_poly: u128) -> Option<(u128, u128)> {
     let dn = gf2_poly_deg(n_poly);
     if dn <= 1 { return None; }
 

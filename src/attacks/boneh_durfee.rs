@@ -75,84 +75,16 @@ fn lll(mut basis: Vec<Vec<Integer>>) -> Vec<Vec<Integer>> {
 }
 
 // ---------------------------------------------------------------------------
-// Polynomial resultant over Z (univariate, naive)
-// ---------------------------------------------------------------------------
-
-fn poly_resultant(a: &[Integer], b: &[Integer]) -> Vec<Integer> {
-    if a.is_empty() || b.is_empty() { return vec![Integer::new()]; }
-    // Use pseudo-remainder sequence (slow but correct for small degrees)
-    let mut p = a.to_vec();
-    let mut q = b.to_vec();
-    let mut sign = Integer::from(1i32);
-    loop {
-        if q.len() == 1 {
-            // result = q[0]^deg(p)
-            let d = p.len().saturating_sub(1);
-            let r = q[0].clone().pow(d as u32);
-            let r = r * sign;
-            return vec![r];
-        }
-        let dp = p.len() as i64 - 1;
-        let dq = q.len() as i64 - 1;
-        if dp < dq {
-            if (dp * dq) % 2 != 0 { sign = -sign.clone(); }
-            std::mem::swap(&mut p, &mut q);
-            continue;
-        }
-        // pseudo-remainder
-        let lc_q = q.last().unwrap().clone();
-        let d = (dp - dq + 1) as u32;
-        let factor = lc_q.pow(d);
-        let mut r: Vec<Integer> = p.iter().map(|x| x.clone() * &factor).collect();
-        // polynomial division r by q, keep remainder
-        while r.len() > q.len().saturating_sub(1) && r.len() >= q.len() {
-            let rd = r.len() as i64 - 1;
-            let qd = q.len() as i64 - 1;
-            let lc_r = r.last().unwrap().clone();
-            let lc_qq = q.last().unwrap().clone();
-            let shift = (rd - qd) as usize;
-            for i in 0..q.len() {
-                r[i + shift] = r[i + shift].clone() * &lc_qq - lc_r.clone() * &q[i];
-            }
-            while r.last().map(|x| *x == 0).unwrap_or(false) { r.pop(); }
-        }
-        if (dp * dq) % 2 != 0 { sign = -sign.clone(); }
-        p = q;
-        q = r;
-    }
-}
-
-/// Find rational roots of integer polynomial (denominator=1 candidates)
-fn integer_roots(poly: &[Integer]) -> Vec<Integer> {
-    if poly.is_empty() { return vec![]; }
-    let mut roots = Vec::new();
-    let n0 = poly[0].clone().abs();
-    if n0 == 0 { roots.push(Integer::new()); }
-    // Try small integer values
-    for v in -100000i64..=100000 {
-        let x = Integer::from(v);
-        let mut val = Integer::new();
-        let mut pw = Integer::from(1i32);
-        for c in poly { val += c.clone() * &pw; pw *= &x; }
-        if val == 0 { roots.push(x); }
-    }
-    roots
-}
-
-// ---------------------------------------------------------------------------
 // Boneh-Durfee core
 // ---------------------------------------------------------------------------
 
 fn boneh_durfee_core(n: &Integer, e: &Integer, delta: f64, m: usize) -> Option<Integer> {
-    // A = (N+1)/2
-    let a_int = (n.clone() + 1u32) / 2u32;
-
     let t = ((1.0 - 2.0 * delta) * m as f64) as usize;
     let x_bound_f = Float::with_val(PREC, n).pow(delta as f32) * 2.0f32;
     let y_bound_f = Float::with_val(PREC, n).pow(0.5f32);
     let xx = x_bound_f.to_integer().unwrap_or_else(Integer::new);
     let yy = y_bound_f.to_integer().unwrap_or_else(Integer::new);
-    let uu = xx.clone() * &yy + 1u32;
+    let _uu = xx.clone() * &yy + 1u32;
 
     // Build shifted polynomial list
     // pol(u,x,y) = 1 + x*(A + y)  where u = x*y+1
@@ -253,7 +185,7 @@ impl RsaAttack for BonehDurfeeAttack {
                 if abort.load(Ordering::Relaxed) { return None; }
                 if let Some(d) = boneh_durfee_core(n, e, delta, m) {
                     // Reconstruct priv key from d
-                    let phi = (e.clone() * &d - 1u32);
+                    let phi = e.clone() * &d - 1u32;
                     let pq_sum = n.clone() - &phi + 1u32;
                     let disc = pq_sum.clone() * &pq_sum - Integer::from(4u32) * n;
                     if disc < 0 { continue; }

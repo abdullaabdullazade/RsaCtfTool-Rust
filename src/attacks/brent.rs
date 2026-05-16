@@ -16,7 +16,6 @@ pub fn brent_factor(n: &Integer, abort: &Arc<AtomicBool>) -> Option<Integer> {
     let mut rng = rand::thread_rng();
     let max_attempts = if n.significant_bits() <= 128 { 48 } else { 12 };
     let max_steps: u64 = 400_000;
-    let mut g = n.clone();
     for _attempt in 0..max_attempts {
         if abort.load(Ordering::Relaxed) { return None; }
 
@@ -25,7 +24,7 @@ pub fn brent_factor(n: &Integer, abort: &Arc<AtomicBool>) -> Option<Integer> {
         let c = Integer::from(rng.gen::<u64>()).modulo(&n_minus_1) + 1u32;
         let m_u: u64 = (rng.gen::<u32>() as u64 % 128) + 16;
 
-        g = Integer::from(1u32);
+        let mut g = Integer::from(1u32);
         let mut r: u64 = 1;
         let mut q = Integer::from(1u32);
         let mut x = Integer::new();
@@ -74,7 +73,6 @@ pub fn brent_factor(n: &Integer, abort: &Arc<AtomicBool>) -> Option<Integer> {
         if g > 1 && g < *n {
             return Some(g);
         }
-        g = n.clone();
     }
 
     None

@@ -270,8 +270,6 @@ Top speedups from this run (`both-ok` subset):
 | `noveltyprimes` | 0.597 | 0.006 | 97.86 |
 | `factordb` | 0.386 | 0.004 | 97.17 |
 
-<<<<<<< HEAD
-=======
 ## Architecture
 
 ```
@@ -293,7 +291,6 @@ tests/
 └── attack_tests.rs  — integration tests with Python-like vectors
 ```
 
->>>>>>> origin/master
 ## Design Decisions
 
 - **`rug` only** — no `num-bigint`; all arithmetic goes through GMP.

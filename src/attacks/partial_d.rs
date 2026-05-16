@@ -5,7 +5,7 @@
 use rug::Integer;
 use std::sync::{Arc, atomic::{AtomicBool, Ordering}};
 use crate::attack::{RsaAttack, Speed, AttackResult};
-use crate::key::{PublicKey, PrivateKey};
+use crate::key::PublicKey;
 use crate::math::gcdext;
 
 pub struct PartialDAttack;
