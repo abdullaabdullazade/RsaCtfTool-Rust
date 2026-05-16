@@ -1,31 +1,36 @@
+---
+layout: default
+title: Troubleshooting
+nav_order: 7
+---
+
 # Troubleshooting
 
-## Program hangs or runs too long
-
-- Use `--timeout` to bound long attacks.
-- Prefer targeted attacks with `--attack` when you know the likely family.
-
-## `RsaRustTool` command not found
-
-- Ensure binary exists: `target/release/RsaRustTool`
-- Add symlink:
+## `RsaRustTool` Command Not Found
 
 ```bash
 ln -sf "$PWD/target/release/RsaRustTool" ~/.local/bin/RsaRustTool
 ```
 
-- Ensure `~/.local/bin` is in `PATH`.
+Make sure `~/.local/bin` exists and is present in `PATH`.
 
-## Panic/backtrace debugging
+## Program Runs Too Long
 
-Run with backtrace enabled:
+- Set `--timeout` for attack-level limits.
+- Use targeted runs with `--attack` instead of full auto mode.
+
+## Panic / Crash Diagnostics
 
 ```bash
 RUST_BACKTRACE=1 RsaRustTool --publickey key.pub --private
 ```
 
-Then open an issue with:
+When opening an issue, include:
 
-- command used
-- input key type/size
-- full panic/backtrace text
+- exact command
+- key type and size
+- full panic or error output
+
+## Abort Safety
+
+Blocking third-party solvers should be configured with their own timeout settings, because external `check()` calls may not observe Rust-side abort flags until they return.

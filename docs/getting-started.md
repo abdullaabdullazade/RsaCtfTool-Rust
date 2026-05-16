@@ -1,6 +1,30 @@
+---
+layout: default
+title: Getting Started
+nav_order: 2
+---
+
 # Getting Started
 
-## Clone and Build
+## Requirements
+
+- Rust stable toolchain (`rustup` + `cargo`)
+- GMP development library
+
+### Fedora / RHEL
+
+```bash
+sudo dnf install -y gmp-devel
+```
+
+### Debian / Ubuntu
+
+```bash
+sudo apt update
+sudo apt install -y libgmp-dev build-essential pkg-config
+```
+
+## Build
 
 ```bash
 git clone https://github.com/abdullaabdullazade/RsaCtfTool-Rust.git
@@ -8,33 +32,16 @@ cd RsaCtfTool-Rust
 cargo build --release
 ```
 
-## System Dependencies
-
-### Fedora/RHEL
+## First Command
 
 ```bash
-sudo dnf install -y gmp-devel
+./target/release/RsaRustTool --publickey ./tests/fixtures/sample.pub --private
 ```
 
-### Debian/Ubuntu
-
-```bash
-sudo apt update
-sudo apt install -y libgmp-dev build-essential pkg-config
-```
-
-## Run
-
-```bash
-./target/release/RsaRustTool --help
-```
-
-## Optional: global command
-
-If you want to run `RsaRustTool` directly without full path:
+## Add Global Command (Optional)
 
 ```bash
 ln -sf "$PWD/target/release/RsaRustTool" ~/.local/bin/RsaRustTool
 ```
 
-Make sure `~/.local/bin` is in your `PATH`.
+Ensure `~/.local/bin` is in your `PATH`.

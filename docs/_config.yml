@@ -1,4 +1,25 @@
-title: RsaCtfTool-Rust Docs
-description: High-performance Rust RSA attack toolkit
-theme: minima
-markdown: kramdown
+title: RsaCtfTool-Rust
+description: High-performance Rust RSA attack toolkit with RsaCtfTool-compatible workflows
+url: https://abdullaabdullazade.github.io
+baseurl: /RsaCtfTool-Rust
+
+remote_theme: just-the-docs/just-the-docs
+plugins:
+  - jekyll-remote-theme
+
+search_enabled: true
+heading_anchors: true
+color_scheme: dark
+
+aux_links:
+  "GitHub Repository":
+    - "https://github.com/abdullaabdullazade/RsaCtfTool-Rust"
+
+nav_external_links:
+  - title: Releases
+    url: https://github.com/abdullaabdullazade/RsaCtfTool-Rust/releases
+
+footer_content: "Copyright &copy; 2026 RsaCtfTool-Rust contributors."
+
+back_to_top: true
+back_to_top_text: "Back to top"

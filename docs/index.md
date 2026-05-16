@@ -1,22 +1,35 @@
-# RsaCtfTool-Rust Documentation
+---
+layout: default
+title: Home
+nav_order: 1
+description: Official documentation for RsaCtfTool-Rust
+---
 
-`RsaCtfTool-Rust` is a high-performance Rust port of [RsaCtfTool](https://github.com/RsaCtfTool/RsaCtfTool), focused on practical RSA attack workflows with Python-compatible CLI behavior.
+# RsaCtfTool-Rust
 
-## What you get
+RsaCtfTool-Rust is a high-performance Rust implementation of practical RSA attack workflows inspired by Python RsaCtfTool.
 
-- Fast big-integer arithmetic via GMP (`rug`)
+## Why This Project
+
+- Fast big integer operations with `rug` and GMP backend
 - Parallel attack execution with `rayon`
-- Broad attack-name compatibility with RsaCtfTool
-- Built-in benchmark tooling for Rust vs Python comparison
+- Compatible attack naming for easier migration from Python scripts
+- Built-in benchmark workflow for Rust vs Python comparison
 
-## Quick Links
+## Quick Start
+
+```bash
+git clone https://github.com/abdullaabdullazade/RsaCtfTool-Rust.git
+cd RsaCtfTool-Rust
+cargo build --release
+./target/release/RsaRustTool --help
+```
+
+## Documentation
 
 - [Getting Started](getting-started)
 - [CLI Reference](cli)
+- [Architecture](architecture)
 - [Attack Compatibility](attacks)
-- [Benchmark Guide](benchmark)
+- [Benchmarking](benchmark)
 - [Troubleshooting](troubleshooting)
-
-## Repository
-
-- GitHub: <https://github.com/abdullaabdullazade/RsaCtfTool-Rust>

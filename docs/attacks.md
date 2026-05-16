@@ -1,6 +1,12 @@
+---
+layout: default
+title: Attack Compatibility
+nav_order: 5
+---
+
 # Attack Compatibility
 
-Status summary (latest benchmarked state in this repository):
+## Coverage Summary
 
 - RsaCtfTool attack names covered: `59/59`
 - Total registered names in Rust: `61`
@@ -13,9 +19,7 @@ Status summary (latest benchmarked state in this repository):
 - Slow: 12
 - Multi-key: 4
 
-## Stub/compatibility attacks
-
-These names are preserved for compatibility, but currently non-runnable (`can_run = false`):
+## Compatibility Stubs (`can_run = false`)
 
 - `factordb`
 - `pastctfprimes`
@@ -28,3 +32,7 @@ These names are preserved for compatibility, but currently non-runnable (`can_ru
 - `wolframalpha`
 - `z3_solver`
 - `neca`
+
+## Notes
+
+Some names are retained for CLI compatibility even when the Rust implementation is intentionally disabled.

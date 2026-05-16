@@ -1,0 +1,13 @@
+.site-title {
+  letter-spacing: 0.2px;
+}
+
+.main-content h1,
+.main-content h2,
+.main-content h3 {
+  letter-spacing: 0.2px;
+}
+
+.main-content code {
+  border-radius: 6px;
+}

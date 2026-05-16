@@ -1,27 +1,37 @@
-# Benchmark Guide
+---
+layout: default
+title: Benchmarking
+nav_order: 6
+---
 
-## Run full comparison
+# Benchmarking
+
+## Rust vs Python (RsaCtfTool)
+
+Use the comparison script to run both tools against the same fixture set.
 
 ```bash
 python -u scripts/benchmark_compare_attacks.py --attacks all --timeout 6 --repeat 1
 ```
 
-This runs Rust and Python attack-by-attack on matching fixtures and writes:
+Generated artifacts:
 
 - `benchmarks/*.csv`
 - `benchmarks/*.md`
 
-## Latest recorded snapshot
+## Latest Snapshot
 
-- Total attacks: 59
-- Both tools OK: 43
-- Python timeouts: 16
-- Rust timeouts: 0
-- Average speedup (`Py/Rust`, both-ok): x57.98
-- Median speedup (`Py/Rust`, both-ok): x56.55
+| Metric | Value |
+|---|---|
+| Total attacks | 59 |
+| Both tools OK | 43 |
+| Python timeouts | 16 |
+| Rust timeouts | 0 |
+| Avg speedup (Py/Rust, both-ok) | x57.98 |
+| Median speedup (Py/Rust, both-ok) | x56.55 |
 
-## Tips for stable numbers
+## Reproducibility Tips
 
-- Use `--repeat 3` or `--repeat 5`
-- Keep CPU governor and background load stable
-- Compare runs from the same machine
+- Use the same machine and CPU governor.
+- Run `--repeat 3` or `--repeat 5` and compare median.
+- Keep background tasks minimal.
