@@ -50,6 +50,28 @@ cargo build --release
 
 # 5) Smoke test
 ./target/release/RsaRustTool --help
+
+# 6) Add global command (optional)
+mkdir -p ~/.local/bin
+ln -sf "$PWD/target/release/RsaRustTool" ~/.local/bin/RsaRustTool
+
+# Bash/Zsh: ensure ~/.local/bin is in PATH
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
+source ~/.bashrc
+
+# Fish shell alternative:
+# fish_add_path ~/.local/bin
+
+# Verify
+which RsaRustTool
+RsaRustTool --help
+```
+
+Alternative install method:
+
+```bash
+cargo install --path .
+# This installs binary into ~/.cargo/bin (ensure that path is in PATH)
 ```
 
 ## Documentation (GitHub Pages)
