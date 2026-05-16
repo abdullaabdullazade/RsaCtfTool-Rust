@@ -1,0 +1,19 @@
+/// small_crt_exp attack: Sage-based partial CRT exponent attack in Python version.
+/// Rust port keeps this as a stub pending native small-root implementation.
+
+use std::sync::{Arc, atomic::AtomicBool};
+use crate::attack::{RsaAttack, Speed, AttackResult};
+use crate::key::PublicKey;
+
+pub struct SmallCrtExpAttack;
+
+impl RsaAttack for SmallCrtExpAttack {
+    fn name(&self) -> &'static str { "small_crt_exp" }
+    fn speed(&self) -> Speed { Speed::Medium }
+
+    fn can_run(&self) -> bool { false }
+
+    fn run(&self, _pub_key: &PublicKey, _cipher: &[Vec<u8>], _abort: &Arc<AtomicBool>) -> Option<AttackResult> {
+        None
+    }
+}
