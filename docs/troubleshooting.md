@@ -12,12 +12,12 @@ nav_order: 7
 ln -sf "$PWD/target/release/RsaRustTool" ~/.local/bin/RsaRustTool
 ```
 
-Make sure `~/.local/bin` exists and is present in `PATH`.
+Ensure `~/.local/bin` exists and is included in `PATH`.
 
 ## Program Runs Too Long
 
-- Set `--timeout` for attack-level limits.
-- Use targeted runs with `--attack` instead of full auto mode.
+- Set `--timeout` for per-attack limits.
+- Use targeted execution with `--attack` instead of full auto mode.
 
 ## Panic / Crash Diagnostics
 
@@ -29,8 +29,8 @@ When opening an issue, include:
 
 - exact command
 - key type and size
-- full panic or error output
+- full panic/error output
 
-## Abort Safety
+## Abort Safety Note
 
-Blocking third-party solvers should be configured with their own timeout settings, because external `check()` calls may not observe Rust-side abort flags until they return.
+Blocking third-party solvers should have internal timeout settings, because external `check()` calls may not observe Rust-side abort flags until they return.

@@ -1,5 +1,16 @@
+:root {
+  --rr-accent: #4dd4ac;
+  --rr-accent-2: #2fb4ff;
+  --rr-surface: rgba(255, 255, 255, 0.04);
+  --rr-border: rgba(255, 255, 255, 0.12);
+}
+
 .site-title {
-  letter-spacing: 0.2px;
+  letter-spacing: 0.25px;
+}
+
+.main-content {
+  line-height: 1.72;
 }
 
 .main-content h1,
@@ -10,4 +21,100 @@
 
 .main-content code {
   border-radius: 6px;
+  padding: 0.12rem 0.3rem;
+}
+
+.rr-hero {
+  margin: 0.5rem 0 1.5rem;
+  padding: 1.4rem;
+  border: 1px solid var(--rr-border);
+  border-radius: 16px;
+  background:
+    radial-gradient(circle at top right, rgba(47, 180, 255, 0.25), transparent 45%),
+    radial-gradient(circle at left center, rgba(77, 212, 172, 0.22), transparent 50%),
+    var(--rr-surface);
+}
+
+.rr-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #07120f;
+  background: linear-gradient(135deg, var(--rr-accent), #8af5d8);
+  border-radius: 999px;
+  padding: 0.18rem 0.65rem;
+  margin-bottom: 0.7rem;
+}
+
+.rr-subtitle {
+  opacity: 0.9;
+  margin-top: 0.5rem;
+}
+
+.rr-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.9rem;
+  margin: 0.8rem 0 1.2rem;
+}
+
+.rr-card {
+  display: block;
+  padding: 0.95rem;
+  border: 1px solid var(--rr-border);
+  border-radius: 12px;
+  background: var(--rr-surface);
+  text-decoration: none;
+  transition: transform 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease;
+}
+
+.rr-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(77, 212, 172, 0.55);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.rr-card-title {
+  display: block;
+  font-weight: 700;
+  color: var(--rr-accent);
+  margin-bottom: 0.28rem;
+}
+
+.rr-kpi {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.7rem;
+  margin: 0.8rem 0 1.1rem;
+}
+
+.rr-kpi-box {
+  border: 1px solid var(--rr-border);
+  border-radius: 10px;
+  padding: 0.75rem 0.8rem;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.rr-kpi-label {
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.72;
+}
+
+.rr-kpi-value {
+  display: block;
+  margin-top: 0.26rem;
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: var(--rr-accent-2);
+}
+
+.rr-note {
+  border-left: 3px solid var(--rr-accent);
+  background: rgba(77, 212, 172, 0.08);
+  padding: 0.7rem 0.85rem;
+  border-radius: 0 10px 10px 0;
 }

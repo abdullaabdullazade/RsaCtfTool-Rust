@@ -27,6 +27,8 @@ Disclaimer: this tool is meant for educational purposes, for those doing CTF's f
 
 Learning the basis of RSA math, understand number theory, modular arithmetic,
 integer factorization, fundamental theorem of arithmetic.
+
+by Abdulla Abdullazade - @abdullaxows
 "#
 }
 

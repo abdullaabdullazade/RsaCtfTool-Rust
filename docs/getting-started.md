@@ -6,10 +6,16 @@ nav_order: 2
 
 # Getting Started
 
+<div class="rr-note">
+  This guide gets you from fresh machine to first successful RSA attack run.
+</div>
+
 ## Requirements
 
 - Rust stable toolchain (`rustup` + `cargo`)
 - GMP development library
+
+## Install System Dependencies
 
 ### Fedora / RHEL
 
@@ -32,13 +38,13 @@ cd RsaCtfTool-Rust
 cargo build --release
 ```
 
-## First Command
+## First Run
 
 ```bash
 ./target/release/RsaRustTool --publickey ./tests/fixtures/sample.pub --private
 ```
 
-## Add Global Command (Optional)
+## Global Command (Optional)
 
 ```bash
 ln -sf "$PWD/target/release/RsaRustTool" ~/.local/bin/RsaRustTool

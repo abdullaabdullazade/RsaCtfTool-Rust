@@ -33,6 +33,6 @@ nav_order: 5
 - `z3_solver`
 - `neca`
 
-## Notes
-
-Some names are retained for CLI compatibility even when the Rust implementation is intentionally disabled.
+<div class="rr-note">
+  Some attack names are preserved for CLI compatibility and migration parity, even when their runtime implementation is intentionally disabled.
+</div>

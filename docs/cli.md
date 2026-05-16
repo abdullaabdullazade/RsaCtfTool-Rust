@@ -12,7 +12,7 @@ nav_order: 3
 RsaRustTool --publickey key.pub --private
 ```
 
-## Common Examples
+## Common Commands
 
 ```bash
 # Run selected attacks only

@@ -8,7 +8,7 @@ nav_order: 6
 
 ## Rust vs Python (RsaCtfTool)
 
-Use the comparison script to run both tools against the same fixture set.
+Run both tools against matching fixtures:
 
 ```bash
 python -u scripts/benchmark_compare_attacks.py --attacks all --timeout 6 --repeat 1
