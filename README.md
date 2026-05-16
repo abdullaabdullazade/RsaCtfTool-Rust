@@ -78,6 +78,10 @@ cargo install --path .
 
 Official docs site: https://abdullaabdullazade.github.io/RsaCtfTool-Rust/
 
+## Crates.io
+
+Crate page: https://crates.io/crates/rsa-rust-tool
+
 ## Extra Setup for Benchmarking (RsaCtfTool comparison)
 
 `scripts/benchmark_compare_attacks.py` runs both the Rust binary and Python RsaCtfTool.
