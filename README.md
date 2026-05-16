@@ -66,6 +66,34 @@ This repository includes a ready-to-publish documentation site in `docs/`.
 
 After publish, docs will be available on your GitHub Pages URL.
 
+## Extra Setup for Benchmarking (RsaCtfTool comparison)
+
+`scripts/benchmark_compare_attacks.py` runs both the Rust binary and Python RsaCtfTool.
+
+```bash
+# 1) Clone RsaCtfTool
+cd /tmp
+git clone https://github.com/RsaCtfTool/RsaCtfTool.git
+cd RsaCtfTool
+
+# 2) Python venv and dependencies
+python3 -m venv venv
+source venv/bin/activate
+pip install --upgrade pip
+pip install -r requirements.txt
+
+# 3) Verify RsaCtfTool works
+PYTHONPATH=src venv/bin/python -m RsaCtfTool.main --help
+
+# 4) Go back to RsaRustTool repo and run benchmark
+cd /path/to/RsaCtfTool-Rust
+python -u scripts/benchmark_compare_attacks.py --attacks all --timeout 6 --repeat 1
+```
+
+Notes:
+- Default benchmark paths may differ on your machine. Use `--rsactf-root`, `--python-bin`, `--rust-bin` when needed.
+- For more stable numbers, use `--repeat 3` or `--repeat 5`.
+
 ## Usage (CLI-compatible with Python RsaCtfTool)
 
 ```bash
@@ -242,6 +270,30 @@ Top speedups from this run (`both-ok` subset):
 | `noveltyprimes` | 0.597 | 0.006 | 97.86 |
 | `factordb` | 0.386 | 0.004 | 97.17 |
 
+<<<<<<< HEAD
+=======
+## Architecture
+
+```
+src/
+├── main.rs          — CLI (clap), Python-compatible flags
+├── lib.rs           — crate root
+├── attack.rs        — RsaAttack trait + AttackEngine (rayon parallel)
+├── key.rs           — PEM import/export (manual DER)
+├── math.rs          — Miller-Rabin, iroot, mlucas, CRT, gcdext
+├── output.rs        — Python-compatible output formatting
+└── attacks/
+    ├── mod.rs       — Registry: single_key_attacks(), multi_key_attacks()
+    └── *.rs         — 55 attack modules
+scripts/
+└── benchmark_compare_attacks.py — Python vs Rust comparison script
+benchmarks/
+└── compare_attacks_*.{csv,md} — benchmark artifacts
+tests/
+└── attack_tests.rs  — integration tests with Python-like vectors
+```
+
+>>>>>>> origin/master
 ## Design Decisions
 
 - **`rug` only** — no `num-bigint`; all arithmetic goes through GMP.
