@@ -14,6 +14,9 @@ impl RsaAttack for LehmanAttack {
 
     fn run(&self, pub_key: &PublicKey, cipher: &[Vec<u8>], abort: &Arc<AtomicBool>) -> Option<AttackResult> {
         let n = &pub_key.n;
+        if n.significant_bits() > 96 {
+            return None;
+        }
 
         // n ≡ 2 (mod 4) → Fermat-class failure
         if n.clone().modulo(&Integer::from(4u32)) == 2 { return None; }

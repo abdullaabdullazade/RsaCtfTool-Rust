@@ -40,6 +40,11 @@ impl RsaAttack for SmallFractionAttack {
         let e = &pub_key.e;
         let depth = 50usize;
 
+        // This simplified search is only practical for relatively small moduli.
+        if n.significant_bits() > 256 {
+            return None;
+        }
+
         let n_float = Float::with_val(PREC, n);
 
         for den in 2..=depth {

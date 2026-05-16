@@ -17,7 +17,10 @@ impl RsaAttack for LondahlAttack {
 
     fn run(&self, pub_key: &PublicKey, cipher: &[Vec<u8>], abort: &Arc<AtomicBool>) -> Option<AttackResult> {
         let n = &pub_key.n;
-        let b = 100_000usize; // londahl bound
+        if n.significant_bits() > 192 {
+            return None;
+        }
+        let b = 20_000usize; // bounded londahl work for predictable runtime
 
         // phi_approx = n - 2*sqrt(n) + 1
         let phi_approx = n.clone() - Integer::from(2u32) * n.clone().sqrt() + Integer::from(1u32);
@@ -41,7 +44,7 @@ impl RsaAttack for LondahlAttack {
         let fac = Integer::from(2u32).pow_mod(&Integer::from(b as u64), n).ok()?;
 
         let mut mu_cur = mu;
-        let max_j = b * b + 1;
+        let max_j = (b * b + 1).min(500_000);
         for j in 0..max_j {
             if abort.load(Ordering::Relaxed) { return None; }
             if let Some(&i) = look_up.get(&mu_cur) {

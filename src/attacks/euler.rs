@@ -13,6 +13,10 @@ impl RsaAttack for EulerAttack {
 
     fn run(&self, pub_key: &PublicKey, cipher: &[Vec<u8>], abort: &Arc<AtomicBool>) -> Option<AttackResult> {
         let n = &pub_key.n;
+        // Euler's method scans up to sqrt(n); keep it for toy/small keys only.
+        if n.significant_bits() > 80 {
+            return None;
+        }
         let end = n.clone().sqrt();
         let mut a = Integer::new();
         let mut solutions: Vec<(Integer, Integer)> = Vec::new();

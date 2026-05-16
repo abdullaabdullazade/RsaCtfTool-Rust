@@ -161,6 +161,11 @@ fn run_ecm(pub_key: &PublicKey, abort: &Arc<AtomicBool>) -> Option<AttackResult>
     let n = &pub_key.n;
     let e = &pub_key.e;
 
+    // This naive pure-Rust ECM is practical only for relatively small composites.
+    if n.significant_bits() > 256 {
+        return None;
+    }
+
     // B1 bounds by key size
     let b1 = match n.significant_bits() {
         0..=64   => 1_000u64,

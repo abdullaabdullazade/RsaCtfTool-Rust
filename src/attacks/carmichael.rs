@@ -20,12 +20,20 @@ impl RsaAttack for CarmichaelAttack {
 
     fn run(&self, pub_key: &PublicKey, cipher: &[Vec<u8>], abort: &Arc<AtomicBool>) -> Option<AttackResult> {
         let n = &pub_key.n;
+        // Naive Carmichael search is only practical on small moduli.
+        if n.significant_bits() > 96 {
+            return None;
+        }
         let n1 = n.clone() - 1u32;
         let f = a000265(&n1);
         let mut a = Integer::from(2u32);
+        let mut rounds = 0u64;
+        let max_rounds = 50_000u64;
 
         while a <= n1 {
             if abort.load(Ordering::Relaxed) { return None; }
+            if rounds >= max_rounds { return None; }
+            rounds += 1;
 
             let _f2 = f.clone() << 1u32;
             let r = a.clone().pow_mod(&f, n).ok()?;

@@ -13,6 +13,9 @@ impl RsaAttack for PollardStrassenAttack {
 
     fn run(&self, pub_key: &PublicKey, cipher: &[Vec<u8>], abort: &Arc<AtomicBool>) -> Option<AttackResult> {
         let n = &pub_key.n;
+        if n.significant_bits() > 128 {
+            return None;
+        }
 
         // Simplified Pollard-Strassen using baby-step giant-step approach
         // Matches the Python implementation's batch GCD method
@@ -25,8 +28,12 @@ impl RsaAttack for PollardStrassenAttack {
         let step = (limit as f64).sqrt() as u64 + 1;
 
         let mut j = 1u64;
+        let mut batches = 0u64;
+        let max_batches = 4096u64;
         while j <= limit {
             if abort.load(Ordering::Relaxed) { return None; }
+            if batches >= max_batches { return None; }
+            batches += 1;
 
             // Compute product of (j*step + i) for i=0..step
             let mut prod = Integer::from(1u32);

@@ -45,7 +45,12 @@ fn lll(mut basis: Vec<Vec<Integer>>) -> Vec<Vec<Integer>> {
     if n <= 1 { return basis; }
     let mut k = 1;
     while k < n {
+        if k == 0 {
+            k = 1;
+            continue;
+        }
         let (mu, _) = gram_schmidt(&basis);
+        if mu.len() <= k { break; }
         for j in (0..k).rev() {
             let r = mu[k][j].clone().round().to_integer().unwrap_or_default();
             if r != 0 {
@@ -54,10 +59,16 @@ fn lll(mut basis: Vec<Vec<Integer>>) -> Vec<Vec<Integer>> {
             }
         }
         let (mu2, ds2) = gram_schmidt(&basis);
+        if ds2.len() <= k || ds2.len() <= (k - 1) || mu2.len() <= k || mu2[k].len() <= (k - 1) {
+            break;
+        }
         let delta = Float::with_val(PREC, 3u32) / 4u32;
         let lhs = delta * &ds2[k - 1];
         let rhs = ds2[k].clone() + mu2[k][k-1].clone().square() * &ds2[k-1];
-        if lhs > rhs { basis.swap(k, k-1); k = k.saturating_sub(1); }
+        if lhs > rhs {
+            basis.swap(k, k - 1);
+            if k > 1 { k -= 1; } else { k = 1; }
+        }
         else { k += 1; }
     }
     basis
@@ -226,6 +237,11 @@ impl RsaAttack for BonehDurfeeAttack {
     fn run(&self, pub_key: &PublicKey, _cipher: &[Vec<u8>], abort: &Arc<AtomicBool>) -> Option<AttackResult> {
         let n = &pub_key.n;
         let e = &pub_key.e;
+
+        // Keep this naive lattice implementation bounded.
+        if n.significant_bits() > 1024 {
+            return None;
+        }
 
         if abort.load(Ordering::Relaxed) { return None; }
 

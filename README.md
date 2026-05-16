@@ -233,13 +233,14 @@ What the script does:
 
 2026-05-16 real run snapshot:
 
-- Files: `benchmarks/compare_attacks_20260516_231808.csv` and `benchmarks/compare_attacks_20260516_231808.md`
+- Files: `benchmarks/compare_attacks_20260516_235732.csv` and `benchmarks/compare_attacks_20260516_235732.md`
 - Total attacks: `59`
-- Both tools `ok`: `42`
+- Both tools `ok`: `43`
 - Python timeouts: `16`
-- Rust timeouts: `9`
-- Average speedup (`Py/Rust`, only both-ok): `x56.70`
-- Median speedup (`Py/Rust`, only both-ok): `x56.04`
+- Rust timeouts: `0`
+- Average speedup (`Py/Rust`, only both-ok): `x57.98`
+- Median speedup (`Py/Rust`, only both-ok): `x56.55`
+- In the `both-ok` subset, no attack is slower than Python in this run.
 
 ## Architecture
 

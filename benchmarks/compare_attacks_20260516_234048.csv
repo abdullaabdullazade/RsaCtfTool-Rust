@@ -1,0 +1,3 @@
+attack,python_status,python_rc,python_s,rust_status,rust_rc,rust_s,speedup_py_div_rust,python_tail,rust_tail
+SQUFOF,ok,0,2.4072935410003993,timeout,124,10.010842331500498,0.2404686300398037,[38;21m-----BEGIN RSA PRIVATE KEY----- | MEgCAQACCwV/EAwUpwYEsWftAgMBAAECCwH2eliUhRq+2YABAgUBP6yf7QIHBGbM | Ba7oAQIFAMcZyxkCBwKLpKAAyAECBGY06bA= | -----END RSA PRIVATE KEY-----[0m,
+lucas_gcd,ok,0,0.33397221399991395,ok,0,1.720669671500218,0.19409432242083405,"100%|██████████| 9999/9999 [00:00<00:00, 211386.38it/s] | [38;21m[+] Time elapsed: 0.0543 sec.[0m | [38;21m[+] Total time elapsed min,max,avg: 0.0543/0.0543/0.0543 sec.[0m | [31;1mSorry, cracking failed.[0m","Sorry, cracking failed."

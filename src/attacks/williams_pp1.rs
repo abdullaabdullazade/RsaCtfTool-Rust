@@ -14,6 +14,9 @@ impl RsaAttack for WilliamsPp1Attack {
 
     fn run(&self, pub_key: &PublicKey, cipher: &[Vec<u8>], abort: &Arc<AtomicBool>) -> Option<AttackResult> {
         let n = &pub_key.n;
+        if n.significant_bits() > 160 {
+            return None;
+        }
         let i2 = n.clone().sqrt();
         let mut p = Integer::from(2u32);
 
@@ -21,9 +24,13 @@ impl RsaAttack for WilliamsPp1Attack {
             if abort.load(Ordering::Relaxed) { return None; }
             let mut v = Integer::from(v_start);
             let mut prime = p.clone();
+            let mut prime_steps = 0u64;
+            let max_prime_steps = 50_000u64;
 
             loop {
                 if abort.load(Ordering::Relaxed) { return None; }
+                if prime_steps >= max_prime_steps { return None; }
+                prime_steps += 1;
                 let e = ilogb(&i2, prime.to_u64().unwrap_or(2));
                 if e == 0 { break; }
                 for _ in 0..e {
