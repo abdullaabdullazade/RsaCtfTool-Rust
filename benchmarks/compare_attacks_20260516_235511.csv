@@ -1,0 +1,9 @@
+attack,python_status,python_rc,python_s,rust_status,rust_rc,rust_s,speedup_py_div_rust,python_tail,rust_tail
+brent,timeout,124,6.013486677000401,ok,0,4.924081410999861,1.2212403035349755,,"Sorry, cracking failed."
+carmichael,timeout,124,6.0088266849998035,ok,0,0.004118364999158075,1459.0320882748856,,"Sorry, cracking failed."
+euler,timeout,124,6.008566622000217,ok,0,0.004585917000440531,1310.221406410762,,"Sorry, cracking failed."
+lehman,timeout,124,6.012045346000377,ok,0,0.004436685998371104,1355.0756912271129,,"Sorry, cracking failed."
+londahl,timeout,124,6.053411545000927,ok,0,0.09915845099931175,61.04786313213931,,"Sorry, cracking failed."
+pollard_rho,timeout,124,6.012654256999667,ok,0,2.0123884080003336,2.987819962138577,,"Sorry, cracking failed."
+pollard_strassen,timeout,124,6.011329003998981,ok,0,0.3166370199996891,18.984921611518715,,"Sorry, cracking failed."
+williams_pp1,timeout,124,6.009112557001572,ok,0,1.5723778709998442,3.821672047050939,,"Sorry, cracking failed."
