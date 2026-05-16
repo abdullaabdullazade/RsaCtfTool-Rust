@@ -231,16 +231,30 @@ What the script does:
 - Measures elapsed time, status (`ok/timeout/error`), and speedup (`Py/Rust`) per attack.
 - Writes results to `benchmarks/` in both CSV and Markdown.
 
-2026-05-16 real run snapshot:
+2026-05-16 benchmark snapshot:
 
-- Files: `benchmarks/compare_attacks_20260516_235732.csv` and `benchmarks/compare_attacks_20260516_235732.md`
-- Total attacks: `59`
-- Both tools `ok`: `43`
-- Python timeouts: `16`
-- Rust timeouts: `0`
-- Average speedup (`Py/Rust`, only both-ok): `x57.98`
-- Median speedup (`Py/Rust`, only both-ok): `x56.55`
-- In the `both-ok` subset, no attack is slower than Python in this run.
+- CSV report: `benchmarks/compare_attacks_20260516_235732.csv`
+- Markdown report: `benchmarks/compare_attacks_20260516_235732.md`
+
+| Metric | Value |
+|---|---|
+| Total attacks | `59` |
+| Both tools `ok` | `43` |
+| Python timeouts | `16` |
+| Rust timeouts | `0` |
+| Avg speedup (`Py/Rust`, both-ok) | `x57.98` |
+| Median speedup (`Py/Rust`, both-ok) | `x56.55` |
+| Rust slower than Python (both-ok subset) | `0` attacks |
+
+Top speedups from this run (`both-ok` subset):
+
+| Attack | Python (s) | Rust (s) | Speedup (Py/Rust) |
+|---|---:|---:|---:|
+| `boneh_durfee` | 0.339 | 0.003 | 105.00 |
+| `ecm2` | 0.509 | 0.005 | 103.27 |
+| `siqs` | 0.317 | 0.003 | 99.22 |
+| `noveltyprimes` | 0.597 | 0.006 | 97.86 |
+| `factordb` | 0.386 | 0.004 | 97.17 |
 
 ## Architecture
 
