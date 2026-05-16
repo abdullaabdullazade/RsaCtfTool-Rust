@@ -4,6 +4,11 @@ version = "0.1.0"
 edition = "2021"
 description = "Production-grade RSA CTF attack tool — Rust port of RsaCtfTool"
 license = "MIT"
+repository = "https://github.com/abdullaabdullazade/RsaCtfTool-Rust"
+homepage = "https://github.com/abdullaabdullazade/RsaCtfTool-Rust"
+readme = "README.md"
+keywords = ["rsa", "ctf", "cryptography", "security", "factorization"]
+categories = ["command-line-utilities", "cryptography"]
 
 [[bin]]
 name = "RsaRustTool"
