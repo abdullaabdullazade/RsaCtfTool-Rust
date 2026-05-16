@@ -76,17 +76,7 @@ cargo install --path .
 
 ## Documentation (GitHub Pages)
 
-This repository includes a ready-to-publish documentation site in `docs/`.
-
-### Enable on GitHub
-
-1. Open repository `Settings`
-2. Go to `Pages`
-3. Set source to `Deploy from a branch`
-4. Branch: `master` (or `main`), Folder: `/docs`
-5. Save
-
-After publish, docs will be available on your GitHub Pages URL.
+Official docs site: https://abdullaabdullazade.github.io/RsaCtfTool-Rust/
 
 ## Extra Setup for Benchmarking (RsaCtfTool comparison)
 
