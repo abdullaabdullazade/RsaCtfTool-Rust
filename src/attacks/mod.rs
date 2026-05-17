@@ -165,6 +165,7 @@ pub fn multi_key_attacks(
         if selected(filter, "same_n_huge_e") {
             attacks.push(Box::new(same_n_huge_e::SameNHugeEAttack {
                 other_keys: keys.clone(),
+                other_ciphers: ciphers.clone(),
             }));
         }
     }
