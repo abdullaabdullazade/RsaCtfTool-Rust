@@ -1,7 +1,3 @@
-/// Common modulus attack: same N, different e1/e2. Matches Python's common_modulus().
-/// Given c1 = m^e1 mod n, c2 = m^e2 mod n with gcd(e1,e2)=1,
-/// recover m = c1^s1 * c2^s2 mod n via Bezout coefficients.
-
 use rug::Integer;
 use std::sync::{Arc, atomic::AtomicBool};
 use crate::attack::{RsaAttack, Speed, AttackResult};

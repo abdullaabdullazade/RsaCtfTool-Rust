@@ -1,5 +1,3 @@
-/// Pollard-Strassen O(n^(1/4)) factoring. Matches Python's pollard_strassen() in algos.py.
-
 use rug::Integer;
 use std::sync::{Arc, atomic::{AtomicBool, Ordering}};
 use crate::attack::{RsaAttack, Speed, AttackResult, make_result, gcd};

@@ -1,6 +1,3 @@
-/// comfact_cn: GCD(ciphertext, n). Sometimes c shares a factor with n.
-/// Matches Python's comfact_cn attack.
-
 use rug::Integer;
 use std::sync::{Arc, atomic::AtomicBool};
 use crate::attack::{RsaAttack, Speed, AttackResult, make_result, gcd};

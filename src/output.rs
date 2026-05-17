@@ -1,6 +1,3 @@
-/// Output formatting matching RsaCtfTool's print_results / print_decrypted_res exactly.
-/// Python uses logger.info() → stderr with ANSI colors (grey for info, bold_red for critical).
-/// We replicate this with log::info!() / log::error!() through env_logger.
 
 use crate::key::PrivateKey;
 

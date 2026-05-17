@@ -1,5 +1,3 @@
-/// Lehmer's machine (fermat-based). Matches Python's lehmer_machine() in algos.py.
-
 use rug::Integer;
 use std::sync::{Arc, atomic::{AtomicBool, Ordering}};
 use crate::attack::{RsaAttack, Speed, AttackResult, make_result, is_square};

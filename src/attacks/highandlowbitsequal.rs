@@ -1,7 +1,3 @@
-/// highandlowbitsequal: factors N when the high and low bits of p and q are equal.
-/// Port of Google's paranoid_crypto FactorHighAndLowBitsEqual.
-/// Matches Python's highandlowbitsequal attack.
-
 use rug::Integer;
 use std::sync::{Arc, atomic::{AtomicBool, Ordering}};
 use crate::attack::{RsaAttack, Speed, AttackResult, make_result, is_square};

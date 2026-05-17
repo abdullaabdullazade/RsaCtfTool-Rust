@@ -1,6 +1,3 @@
-/// nullattack: does nothing, returns None. Used as a no-op placeholder.
-/// Matches Python's nullattack (speed: medium).
-
 use std::sync::{Arc, atomic::AtomicBool};
 use crate::attack::{RsaAttack, Speed, AttackResult};
 use crate::key::PublicKey;

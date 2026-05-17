@@ -1,7 +1,3 @@
-/// Hastad's broadcast attack: same plaintext m encrypted under k different keys with e=3.
-/// Uses CRT to recover m^e mod (n1*n2*...) then takes eth integer root.
-/// Matches Python's hastads() in algos.py.
-
 use rug::Integer;
 use std::sync::{Arc, atomic::AtomicBool};
 use crate::attack::{RsaAttack, Speed, AttackResult};

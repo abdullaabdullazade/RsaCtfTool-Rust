@@ -1,6 +1,3 @@
-/// Wiener's attack via continued fractions.
-/// Matches Python's wiener() in algos.py.
-
 use rug::Integer;
 use std::sync::{Arc, atomic::{AtomicBool, Ordering}};
 use crate::attack::{RsaAttack, Speed, AttackResult, make_result, is_square};

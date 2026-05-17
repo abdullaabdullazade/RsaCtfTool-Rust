@@ -1,5 +1,3 @@
-/// Kraitchik's factorization. Matches Python's kraitchik() in algos.py.
-
 use std::sync::{Arc, atomic::{AtomicBool, Ordering}};
 use crate::attack::{RsaAttack, Speed, AttackResult, make_result, gcd, is_square};
 use crate::key::PublicKey;

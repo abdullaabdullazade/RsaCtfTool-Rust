@@ -1,6 +1,3 @@
-/// Smallq: trial division attack — tries all primes up to 100,000.
-/// Equivalent to Python's smallq attack (fast).
-
 use rug::Integer;
 use std::sync::{Arc, atomic::{AtomicBool, Ordering}};
 use crate::attack::{RsaAttack, Speed, AttackResult, make_result, primes_up_to};

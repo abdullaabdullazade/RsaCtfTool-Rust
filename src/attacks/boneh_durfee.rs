@@ -1,7 +1,3 @@
-/// Boneh-Durfee attack: factor n when d < N^0.292 (small private exponent).
-/// Uses Herrmann-May variant with LLL on bivariate polynomial lattice.
-/// Reference: https://github.com/mimoo/RSA-and-LLL-attacks
-
 use rug::{Float, Integer, ops::Pow};
 use std::sync::{Arc, atomic::{AtomicBool, Ordering}};
 use crate::attack::{RsaAttack, Speed, AttackResult};

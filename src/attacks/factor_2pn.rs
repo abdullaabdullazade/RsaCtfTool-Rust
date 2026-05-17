@@ -1,8 +1,3 @@
-
-
-/// Factor 2PN: factors N = p*q where sqrt(2PN) ≈ (Pp + 2q)/2.
-/// Matches Python's factor_2PN() in algos.py.
-
 use rug::Integer;
 use std::sync::{Arc, atomic::AtomicBool};
 use crate::attack::{RsaAttack, Speed, AttackResult, make_result};

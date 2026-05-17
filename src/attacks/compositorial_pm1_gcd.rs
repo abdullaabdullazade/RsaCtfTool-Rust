@@ -1,7 +1,3 @@
-/// compositorial_pm1_gcd: GCD(compositorial ± 1, n).
-/// Compositorial = product of composites with prime factors removed.
-/// Matches Python's compositorial_pm1_gcd attack.
-
 use rug::Integer;
 use std::sync::{Arc, atomic::{AtomicBool, Ordering}};
 use crate::attack::{RsaAttack, Speed, AttackResult, make_result, gcd};

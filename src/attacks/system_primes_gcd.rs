@@ -1,7 +1,3 @@
-/// system_primes_gcd: GCD of N against well-known crypto/system constants.
-/// These are primes from OpenSSL, NIST, RFC primes, Diffie-Hellman groups, etc.
-/// Matches Python's system_primes_gcd attack.
-
 use rug::Integer;
 use std::sync::{Arc, atomic::AtomicBool};
 use crate::attack::{RsaAttack, Speed, AttackResult, make_result, gcd};

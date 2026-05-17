@@ -1,7 +1,3 @@
-
-/// Novelty primes: tests primes of form 3133...7 (ekoparty 2015 "rsa 2070").
-/// Matches Python's noveltyprimes attack.
-
 use rug::Integer;
 use std::sync::{Arc, atomic::AtomicBool};
 use crate::attack::{RsaAttack, Speed, AttackResult, make_result};

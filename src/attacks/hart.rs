@@ -1,5 +1,3 @@
-/// Hart's one-line factoring algorithm. Matches Python's hart() in algos.py.
-
 use rug::Integer;
 use std::sync::{Arc, atomic::{AtomicBool, Ordering}};
 use crate::attack::{RsaAttack, Speed, AttackResult, make_result, is_square, gcd};

@@ -1,6 +1,3 @@
-/// neca attack: external NECA/Sage-based attack in Python version.
-/// Rust port keeps this as a stub pending native implementation.
-
 use std::sync::{Arc, atomic::AtomicBool};
 use crate::attack::{RsaAttack, Speed, AttackResult};
 use crate::key::PublicKey;

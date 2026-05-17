@@ -1,6 +1,3 @@
-/// mersenne_primes: trial division by 2^p - 1 for known Mersenne prime exponents.
-/// Matches Python's mersenne_primes attack.
-
 use rug::Integer;
 use std::sync::{Arc, atomic::AtomicBool};
 use crate::attack::{RsaAttack, Speed, AttackResult, make_result};

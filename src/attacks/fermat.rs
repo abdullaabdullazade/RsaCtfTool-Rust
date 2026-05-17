@@ -1,6 +1,3 @@
-/// Fermat's factorization. Finds p,q when they are close together.
-/// Matches Python's fermat() in algos.py exactly.
-
 use rug::Integer;
 use std::sync::{Arc, atomic::{AtomicBool, Ordering}};
 use crate::attack::{RsaAttack, Speed, AttackResult, make_result, is_square};

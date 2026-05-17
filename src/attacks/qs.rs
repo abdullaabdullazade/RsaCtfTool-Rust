@@ -1,6 +1,3 @@
-/// qs attack: quadratic sieve via external tools in Python version.
-/// Rust port keeps this as a stub until native QS backend is added.
-
 use std::sync::{Arc, atomic::AtomicBool};
 use crate::attack::{RsaAttack, Speed, AttackResult};
 use crate::key::PublicKey;

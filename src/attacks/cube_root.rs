@@ -1,6 +1,3 @@
-/// Cube-root (eth-root) attack: works when m^e < n so no modular reduction happened.
-/// Binary search for m where m^e == c exactly. Supports e=3 and e=5.
-
 use rug::{Integer, ops::Pow};
 use std::sync::{Arc, atomic::AtomicBool};
 use crate::attack::{RsaAttack, Speed, AttackResult};

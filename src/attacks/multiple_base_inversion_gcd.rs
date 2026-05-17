@@ -1,6 +1,3 @@
-/// multiple_base_inversion_gcd: GCD of digit-reversed representations of n^k.
-/// Matches Python's multiple_base_inversion_gcd attack.
-
 use rug::{Integer, ops::Pow};
 use std::sync::{Arc, atomic::AtomicBool};
 use crate::attack::{RsaAttack, Speed, AttackResult, make_result, gcd};

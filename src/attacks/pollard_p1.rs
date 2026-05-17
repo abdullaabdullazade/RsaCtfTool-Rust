@@ -1,5 +1,3 @@
-/// Pollard P-1 factorization. Matches Python's pollard_P_1() in algos.py.
-
 use rug::Integer;
 use std::sync::{Arc, atomic::{AtomicBool, Ordering}};
 use crate::attack::{RsaAttack, Speed, AttackResult, make_result, gcd, primes_up_to};
@@ -14,9 +12,8 @@ impl RsaAttack for PollardP1Attack {
     fn run(&self, pub_key: &PublicKey, cipher: &[Vec<u8>], abort: &Arc<AtomicBool>) -> Option<AttackResult> {
         let n = &pub_key.n;
         let primes = primes_up_to(997);
-        let logn = (n.significant_bits() as f64) / 2.0; // approx log(sqrt(n))
+        let logn = (n.significant_bits() as f64) / 2.0;
 
-        // Build exponents list: for each prime p, include floor(log_p(sqrt(n))) copies
         let mut z: Vec<u64> = Vec::new();
         for &p in &primes {
             let logp = (p as f64).ln();

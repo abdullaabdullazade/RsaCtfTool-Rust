@@ -1,7 +1,3 @@
-/// partial_d attack: recover p and q from partial low bits of d.
-/// Uses Hensel lifting to enumerate p_low candidates, then Coppersmith small_roots.
-/// Python: sage/partial_d.sage (Coppersmith + Hensel lifting by lwc)
-
 use rug::Integer;
 use std::sync::{Arc, atomic::{AtomicBool, Ordering}};
 use crate::attack::{RsaAttack, Speed, AttackResult};

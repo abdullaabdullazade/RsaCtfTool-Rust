@@ -1,6 +1,3 @@
-/// rapid7primes attack: data-driven prime lookup in Python version.
-/// Rust port keeps this as a stub until Rapid7 corpus integration is added.
-
 use std::sync::{Arc, atomic::AtomicBool};
 use crate::attack::{RsaAttack, Speed, AttackResult};
 use crate::key::PublicKey;

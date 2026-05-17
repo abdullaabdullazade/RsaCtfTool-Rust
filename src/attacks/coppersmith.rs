@@ -1,6 +1,3 @@
-/// Coppersmith's attack: stereotyped messages / small e root finding.
-/// Native LLL + Newton-Raphson integer root finder. No SageMath.
-
 use rug::{Float, Integer, ops::Pow};
 use std::sync::{Arc, atomic::{AtomicBool, Ordering}};
 use crate::attack::{RsaAttack, Speed, AttackResult};

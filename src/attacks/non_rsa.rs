@@ -1,7 +1,3 @@
-/// nonRSA attack: detects prime power moduli n = p^k, recovers p.
-/// Matches Python's nonRSA() in algos.py.
-
-
 use std::sync::{Arc, atomic::AtomicBool};
 use crate::attack::{RsaAttack, Speed, AttackResult, make_result};
 use crate::key::PublicKey;

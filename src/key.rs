@@ -1,8 +1,3 @@
-/// RSA key loading (PEM), generation, and private key export.
-///
-/// Supports both PKCS#8 SubjectPublicKeyInfo (-----BEGIN PUBLIC KEY-----)
-/// and PKCS#1 RSAPublicKey (-----BEGIN RSA PUBLIC KEY-----) formats.
-
 use anyhow::{bail, Context, Result};
 use base64::Engine;
 use rug::Integer;

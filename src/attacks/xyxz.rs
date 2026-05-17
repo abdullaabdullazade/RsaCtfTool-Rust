@@ -1,5 +1,3 @@
-/// XYXZ attack: factors N when N = base^y * base^z form. Matches Python's factor_XYXZ().
-
 use rug::{Integer, ops::Pow};
 use std::sync::{Arc, atomic::{AtomicBool, Ordering}};
 use crate::attack::{RsaAttack, Speed, AttackResult, make_result};

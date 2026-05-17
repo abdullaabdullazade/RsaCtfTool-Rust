@@ -1,6 +1,3 @@
-/// lattice attack: Sage lattice attack in Python version.
-/// Rust port keeps this as a stub until native lattice backend is added.
-
 use std::sync::{Arc, atomic::AtomicBool};
 use crate::attack::{RsaAttack, Speed, AttackResult};
 use crate::key::PublicKey;

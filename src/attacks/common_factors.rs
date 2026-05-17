@@ -1,6 +1,3 @@
-/// Common factors multi-key attack: GCD each pair of moduli.
-/// Matches Python's common_factors attack in multi_keys/.
-
 use std::sync::{Arc, atomic::AtomicBool};
 use crate::attack::{RsaAttack, Speed, AttackResult, gcd};
 use crate::key::{PublicKey, PrivateKey};

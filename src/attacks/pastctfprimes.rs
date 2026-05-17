@@ -1,6 +1,3 @@
-/// pastctfprimes attack: data-driven prime lookup in Python version.
-/// Rust port keeps this as a stub until bundled prime corpus is wired in.
-
 use std::sync::{Arc, atomic::AtomicBool};
 use crate::attack::{RsaAttack, Speed, AttackResult};
 use crate::key::PublicKey;
