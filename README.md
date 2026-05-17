@@ -58,11 +58,22 @@ cargo install rsa-rust-tool
 ```bash
 mkdir -p ~/.local/bin
 ln -sf "$PWD/target/release/RsaRustTool" ~/.local/bin/RsaRustTool
+```
 
-# Add to PATH (Bash / Zsh)
+Then add `~/.local/bin` to your PATH — pick your shell:
+
+**Bash**
+```bash
 echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc && source ~/.bashrc
+```
 
-# Fish
+**Zsh**
+```zsh
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc && source ~/.zshrc
+```
+
+**Fish**
+```fish
 fish_add_path ~/.local/bin
 ```
 
