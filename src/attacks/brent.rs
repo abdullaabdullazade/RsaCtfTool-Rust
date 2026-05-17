@@ -1,5 +1,3 @@
-/// Brent's variant of Pollard Rho. Matches Python's brent() in algos.py.
-
 use rug::Integer;
 use rand::Rng;
 use std::sync::{Arc, atomic::{AtomicBool, Ordering}};
@@ -12,48 +10,39 @@ pub fn brent_factor(n: &Integer, abort: &Arc<AtomicBool>) -> Option<Integer> {
     if n.clone() & 1u32 == 0 {
         return Some(Integer::from(2u32));
     }
-
     let mut rng = rand::thread_rng();
-    let max_attempts = if n.significant_bits() <= 128 { 48 } else { 12 };
-    let max_steps: u64 = 400_000;
-    for _attempt in 0..max_attempts {
-        if abort.load(Ordering::Relaxed) { return None; }
+    let n_m1 = n.clone() - 1u32;
 
-        let n_minus_1 = n.clone() - 1u32;
-        let y = Integer::from(rng.gen::<u64>()).modulo(&n_minus_1) + 1u32;
-        let c = Integer::from(rng.gen::<u64>()).modulo(&n_minus_1) + 1u32;
-        let m_u: u64 = (rng.gen::<u32>() as u64 % 128) + 16;
+    loop {
+        if abort.load(Ordering::Relaxed) { return None; }
+        let mut y = Integer::from(rng.gen::<u64>()).modulo(&n_m1) + 1u32;
+        let c = Integer::from(rng.gen::<u64>()).modulo(&n_m1) + 1u32;
+        let m = (rng.gen::<u32>() as u64 % 128) + 16;
 
         let mut g = Integer::from(1u32);
         let mut r: u64 = 1;
         let mut q = Integer::from(1u32);
         let mut x = Integer::new();
         let mut ys = Integer::new();
-        let mut y_cur = y;
-        let mut steps: u64 = 0;
 
         while g == 1 {
             if abort.load(Ordering::Relaxed) { return None; }
-            if steps > max_steps { break; }
-            x = y_cur.clone();
-            for _ in 0..=r {
-                y_cur = (y_cur.clone() * &y_cur + &c).modulo(n);
-                steps += 1;
+            x = y.clone();
+            for _ in 0..r {
+                y = (y.clone() * &y + &c).modulo(n);
             }
             let mut k: u64 = 0;
             while k < r && g == 1 {
                 if abort.load(Ordering::Relaxed) { return None; }
-                if steps > max_steps { break; }
-                ys = y_cur.clone();
-                let lim = m_u.min(r - k);
-                for _ in 0..=lim {
-                    y_cur = (y_cur.clone() * &y_cur + &c).modulo(n);
-                    let diff = if x > y_cur { x.clone() - &y_cur } else { y_cur.clone() - &x };
+                ys = y.clone();
+                let lim = m.min(r - k);
+                for _ in 0..lim {
+                    y = (y.clone() * &y + &c).modulo(n);
+                    let diff = if x > y { x.clone() - &y } else { y.clone() - &x };
                     q = (q * diff).modulo(n);
-                    steps += 1;
                 }
                 g = gcd(&q, n);
-                k += m_u;
+                k += m;
             }
             r <<= 1;
         }
@@ -65,8 +54,6 @@ pub fn brent_factor(n: &Integer, abort: &Arc<AtomicBool>) -> Option<Integer> {
                 let diff = if x > ys { x.clone() - &ys } else { ys.clone() - &x };
                 g = gcd(&diff, n);
                 if g > 1 { break; }
-                steps += 1;
-                if steps > max_steps { break; }
             }
         }
 
@@ -74,8 +61,6 @@ pub fn brent_factor(n: &Integer, abort: &Arc<AtomicBool>) -> Option<Integer> {
             return Some(g);
         }
     }
-
-    None
 }
 
 impl RsaAttack for BrentAttack {

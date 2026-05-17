@@ -1,5 +1,3 @@
-/// Williams P+1 factorization. Matches Python's williams_pp1() in algos.py.
-
 use rug::Integer;
 use std::sync::{Arc, atomic::{AtomicBool, Ordering}};
 use crate::attack::{RsaAttack, Speed, AttackResult, make_result, gcd};
@@ -14,24 +12,17 @@ impl RsaAttack for WilliamsPp1Attack {
 
     fn run(&self, pub_key: &PublicKey, cipher: &[Vec<u8>], abort: &Arc<AtomicBool>) -> Option<AttackResult> {
         let n = &pub_key.n;
-        if n.significant_bits() > 160 {
-            return None;
-        }
-        let i2 = n.clone().sqrt();
-        let mut p = Integer::from(2u32);
+        let sqrt_n = n.clone().sqrt();
+        let mut start_prime = Integer::from(2u32);
 
-        for v_start in 1u32..50 {
+        for v_start in 1u32.. {
             if abort.load(Ordering::Relaxed) { return None; }
             let mut v = Integer::from(v_start);
-            let mut prime = p.clone();
-            let mut prime_steps = 0u64;
-            let max_prime_steps = 50_000u64;
+            let mut prime = start_prime.clone();
 
             loop {
                 if abort.load(Ordering::Relaxed) { return None; }
-                if prime_steps >= max_prime_steps { return None; }
-                prime_steps += 1;
-                let e = ilogb(&i2, prime.to_u64().unwrap_or(2));
+                let e = ilogb(&sqrt_n, prime.to_u64().unwrap_or(2));
                 if e == 0 { break; }
                 for _ in 0..e {
                     v = mlucas(&v, &prime, n);
@@ -44,9 +35,9 @@ impl RsaAttack for WilliamsPp1Attack {
                 }
                 if g == *n { break; }
                 prime = next_prime(&prime);
-                if prime > i2 { break; }
+                if prime > sqrt_n { break; }
             }
-            p = next_prime(&p);
+            start_prime = next_prime(&start_prime);
         }
         None
     }

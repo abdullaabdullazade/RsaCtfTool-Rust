@@ -1,5 +1,3 @@
-/// Euler's factorization method. Matches Python's euler() in algos.py.
-
 use rug::Integer;
 use std::sync::{Arc, atomic::{AtomicBool, Ordering}};
 use crate::attack::{RsaAttack, Speed, AttackResult, make_result, gcd, is_square};
@@ -13,10 +11,6 @@ impl RsaAttack for EulerAttack {
 
     fn run(&self, pub_key: &PublicKey, cipher: &[Vec<u8>], abort: &Arc<AtomicBool>) -> Option<AttackResult> {
         let n = &pub_key.n;
-        // Euler's method scans up to sqrt(n); keep it for toy/small keys only.
-        if n.significant_bits() > 80 {
-            return None;
-        }
         let end = n.clone().sqrt();
         let mut a = Integer::new();
         let mut solutions: Vec<(Integer, Integer)> = Vec::new();
@@ -37,29 +31,17 @@ impl RsaAttack for EulerAttack {
 
         if solutions.len() < 2 { return None; }
 
-        let (a0, b0) = &solutions[0];
+        let (a0, _) = &solutions[0];
         let (a1, b1) = &solutions[1];
+        let b0 = &solutions[0].1;
 
-        // k = gcd(a0-a1, b1-b0)^2, etc.
-        let k = {
-            let g = gcd(&(a0.clone() - a1), &(b1.clone() - b0));
-            g.clone() * g
-        };
-        let h = {
-            let g = gcd(&(a0.clone() + a1), &(b1.clone() + b0));
-            g.clone() * g
-        };
-        let m = {
-            let g = gcd(&(a0.clone() + a1), &(b1.clone() - b0));
-            g.clone() * g
-        };
-        let lev = {
-            let g = gcd(&(a0.clone() - a1), &(b1.clone() + b0));
-            g.clone() * g
-        };
+        let k   = { let g = gcd(&(a0.clone() - a1), &(b1.clone() - b0)); g.clone() * g };
+        let h   = { let g = gcd(&(a0.clone() + a1), &(b1.clone() + b0)); g.clone() * g };
+        let m   = { let g = gcd(&(a0.clone() + a1), &(b1.clone() - b0)); g.clone() * g };
+        let lev = { let g = gcd(&(a0.clone() - a1), &(b1.clone() + b0)); g.clone() * g };
 
-        let p = gcd(&(k.clone() + &h), n);
-        let q = gcd(&(lev.clone() + &m), n);
+        let p = gcd(&(k + &h), n);
+        let q = gcd(&(lev + &m), n);
 
         if p > 1 && q > 1 && p.clone() * &q == *n {
             log::debug!("[euler] found p={}, q={}", &p, &q);

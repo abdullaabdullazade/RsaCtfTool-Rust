@@ -1,5 +1,3 @@
-/// SQUFOF (Shanks' Square Forms Factorization). Matches Python's SQUFOF() in algos.py.
-
 use rug::Integer;
 use std::sync::{Arc, atomic::{AtomicBool, Ordering}};
 use crate::attack::{RsaAttack, Speed, AttackResult, make_result, gcd};
@@ -146,7 +144,7 @@ impl RsaAttack for SqUfOfAttack {
         let s = n.clone().sqrt();
         let l = (s << 1u32).sqrt() << 1u32;
         let b = Integer::from(3u32) * &l;
-        let b_u64 = b.to_u64().unwrap_or(100_000);
+        let b_u64 = b.to_u64().unwrap_or(u64::MAX);
 
         for &mult in MULTIPLIERS {
             if abort.load(Ordering::Relaxed) { return None; }

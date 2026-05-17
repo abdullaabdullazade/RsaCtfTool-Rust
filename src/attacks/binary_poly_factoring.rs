@@ -1,8 +1,3 @@
-/// binary_polynomial_factoring: represent n as a GF(2)[x] polynomial and factor it.
-/// n = sum_{i: bit_i=1} 2^i → polynomial over GF(2). Factor the polynomial, evaluate at x=2.
-/// Works well for Mersenne-like numbers where n = p * q with p = 2^a+1, q = 2^b+1 etc.
-/// Python: sage/binary_polynomial_factoring.sage
-
 use rug::Integer;
 use std::sync::{Arc, atomic::{AtomicBool, Ordering}};
 use crate::attack::{RsaAttack, Speed, AttackResult};
@@ -22,10 +17,9 @@ fn gf2_poly_rem(mut a: u128, b: u128) -> u128 {
     if db < 0 { return 0; }
     loop {
         let da = gf2_poly_deg(a);
-        if da < db { break; }
+        if da < db { break a; }
         a ^= b << (da - db) as u32;
-    }
-    a
+    }   
 }
 
 /// Evaluate GF(2) polynomial at x=2 over integers

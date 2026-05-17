@@ -1,5 +1,3 @@
-/// Lehman's factoring algorithm. Matches Python's lehman() in algos.py.
-
 use rug::Integer;
 use std::sync::{Arc, atomic::{AtomicBool, Ordering}};
 use crate::attack::{RsaAttack, Speed, AttackResult, make_result, gcd, is_square};
@@ -14,11 +12,7 @@ impl RsaAttack for LehmanAttack {
 
     fn run(&self, pub_key: &PublicKey, cipher: &[Vec<u8>], abort: &Arc<AtomicBool>) -> Option<AttackResult> {
         let n = &pub_key.n;
-        if n.significant_bits() > 96 {
-            return None;
-        }
 
-        // n ≡ 2 (mod 4) → Fermat-class failure
         if n.clone().modulo(&Integer::from(4u32)) == 2 { return None; }
 
         let (cbrt_n, _) = iroot(n, 3);
@@ -30,8 +24,7 @@ impl RsaAttack for LehmanAttack {
             if ki > cbrt_n { break; }
 
             let nk4 = n.clone() * &ki * 4u32;
-            let ki_sqrt = ki.clone().sqrt();
-            let ki4 = ki_sqrt.clone() * 4u32;
+            let ki4 = ki.clone().sqrt() * 4u32;
             let ink4 = nk4.clone().sqrt() + 1u32;
             let limit = ink4.clone() + Integer::from(&i6 / &ki4) + 1u32;
 

@@ -1,7 +1,3 @@
-/// Londahl close-factor attack: factors N when p and q are close to sqrt(N).
-/// Uses BSGS (baby-step giant-step) table over phi approximation.
-/// Matches Python's close_factor() in algos.py.
-
 use rug::Integer;
 use std::collections::HashMap;
 use std::sync::{Arc, atomic::{AtomicBool, Ordering}};
@@ -17,38 +13,32 @@ impl RsaAttack for LondahlAttack {
 
     fn run(&self, pub_key: &PublicKey, cipher: &[Vec<u8>], abort: &Arc<AtomicBool>) -> Option<AttackResult> {
         let n = &pub_key.n;
-        if n.significant_bits() > 192 {
-            return None;
-        }
-        let b = 20_000usize; // bounded londahl work for predictable runtime
+        let b = 20_000usize;
 
-        // phi_approx = n - 2*sqrt(n) + 1
         let phi_approx = n.clone() - Integer::from(2u32) * n.clone().sqrt() + Integer::from(1u32);
         let parity = phi_approx.clone() & Integer::from(1u32);
 
-        // Baby steps: build lookup table z = 2^i mod n for even/odd i
         let mut look_up: HashMap<Integer, usize> = HashMap::new();
         let mut z = Integer::from(1u32);
         for i in 0..=b {
             if abort.load(Ordering::Relaxed) { return None; }
-            let bit = Integer::from(i as u32) & Integer::from(1u32);
-            if bit == parity {
+            if Integer::from(i as u32) & Integer::from(1u32) == parity {
                 look_up.insert(z.clone(), i);
             }
             z = (z * Integer::from(2u32)).modulo(n);
         }
 
-        // Giant steps: mu = inv(2^phi_approx) mod n, fac = 2^b mod n
         let pow_phi = Integer::from(2u32).pow_mod(&phi_approx, n).ok()?;
         let mu = modinv(&pow_phi, n)?;
         let fac = Integer::from(2u32).pow_mod(&Integer::from(b as u64), n).ok()?;
 
         let mut mu_cur = mu;
-        let max_j = (b * b + 1).min(500_000);
-        for j in 0..max_j {
+        for j in 0usize.. {
             if abort.load(Ordering::Relaxed) { return None; }
             if let Some(&i) = look_up.get(&mu_cur) {
-                let phi = phi_approx.clone() + Integer::from(i as i64) - Integer::from(j as i64) * Integer::from(b as u64);
+                let phi = phi_approx.clone()
+                    + Integer::from(i as i64)
+                    - Integer::from(j as i64) * Integer::from(b as u64);
                 if let Some((p, q)) = factor_from_n_phi(n, &phi) {
                     if p > 1 && q > 1 {
                         log::debug!("[londahl] found factor at j={}", j);
