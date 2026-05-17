@@ -55,6 +55,8 @@ cargo install rsa-rust-tool
 
 ### Global command (optional)
 
+Run this from inside the project directory:
+
 ```bash
 mkdir -p ~/.local/bin
 ln -sf "$PWD/target/release/RsaRustTool" ~/.local/bin/RsaRustTool
